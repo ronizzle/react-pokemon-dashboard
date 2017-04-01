@@ -13,9 +13,12 @@ const PokeList = ({pokemons}) => {
     )
 
     return (
-        <ListGroup>
-            {pokemon}
-        </ListGroup>
+
+        <Col sm={8} md={10} smOffset={2} mdOffset={1}>
+            <ListGroup>
+                {pokemon}
+            </ListGroup>
+        </Col>
     )
 }
 export default PokeList;

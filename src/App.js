@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'whatwg-fetch';
-import PokeList from './components/PokeList'
 import {Col, Pagination} from 'react-bootstrap/lib/'
-import SelectItemsPerPageButtons from './components/SelectItemsPerPageButtons'
+import PokemonIndexList from './components/PokemonIndexList'
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +14,8 @@ class App extends Component {
             limit: 50,
             offset: 0,
             totalPages: 0,
-            count: 0
+            count: 0,
+            loaded: false
         }
         this.handlePaginationSelect = this.handlePaginationSelect.bind(this)
         this.loadPokemons = this.loadPokemons.bind(this)
@@ -24,6 +24,7 @@ class App extends Component {
     }
 
     handleLimitChange(event) {
+        console.log("something")
         this.setState({
             limit: +event.target.innerHTML || this.state.count,
             activePage: 1
@@ -51,7 +52,8 @@ class App extends Component {
             this.setState({
                 pokemons: json.results,
                 totalPages: pages,
-                count: json.count
+                count: json.count,
+                loaded: true
             })
 
         }).catch(err => {
@@ -71,21 +73,23 @@ class App extends Component {
                     <h2>PokeDashboard</h2>
                 </div>
 
-                <SelectItemsPerPageButtons options={[10, 50, 100, 200]} selectedValue={this.state.limit}
-                                           allValue={this.state.count} onOptionSelected={this.handleLimitChange}/>
 
-                <Col sm={8} md={10} smOffset={2} mdOffset={2}>
-                    <PokeList pokemons={this.state.pokemons}/>
-                </Col>
+                {this.state.loaded ? null : "Loading..."}
+                <PokemonIndexList
+                    display={this.state.loaded}
+                    options={[10,50,100,200]}
+                    selectedValue={this.state.limit}
+                    allValue={this.state.count}
+                    onOptionSelected={this.handleLimitChange}
+                    pokemons={this.state.pokemons}
+                    bsSize="small"
+                    items={this.state.totalPages}
+                    activePage={this.state.activePage}
+                    onSelect={this.handlePaginationSelect}
+                    totalPages={this.state.totalPages}
+                />
 
-                <Col sm={12}>
-                    <Pagination
-                        bsSize="small"
-                        items={this.state.totalPages}
-                        activePage={this.state.activePage}
-                        onSelect={this.handlePaginationSelect}
-                    />
-                </Col>
+
             </div>
         );
     }
