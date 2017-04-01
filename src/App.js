@@ -25,7 +25,8 @@ class App extends Component {
 
     handleLimitChange(event) {
         this.setState({
-            limit: +event.target.innerHTML || this.state.count
+            limit: +event.target.innerHTML || this.state.count,
+            activePage: 1
         }, () => {
             this.loadPokemons(`${this.props.baseUrl}pokemon?limit=${this.state.limit}&offset=${this.state.offset}&offset=0`)
         })
