@@ -11,7 +11,7 @@ class App extends Component {
         super(props)
         this.state = {
             pokemons: [],
-            activePage: 0,
+            activePage: 1,
             limit: 50,
             offset: 0,
             totalPages: 0,
@@ -31,9 +31,12 @@ class App extends Component {
         })
     }
 
-    handlePaginationSelect(event) {
-        let offset = this.state.limit * (event - 1)
+    handlePaginationSelect(selectedPage) {
+        let offset = this.state.limit * (selectedPage - 1)
         this.loadPokemons(`${this.props.baseUrl}pokemon?limit=${this.state.limit}&offset=${offset}`)
+        this.setState({
+            activePage: selectedPage
+        })
     }
 
     loadPokemons(url) {
