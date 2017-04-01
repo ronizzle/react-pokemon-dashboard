@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'whatwg-fetch';
 import PokeList from './components/PokeList'
-import { Col, Pagination } from 'react-bootstrap/lib/'
+import {Col, Pagination} from 'react-bootstrap/lib/'
 import SelectItemsPerPageButtons from './components/SelectItemsPerPageButtons'
 
 class App extends Component {
@@ -46,16 +46,16 @@ class App extends Component {
                 return response.json()
             }).then(json => {
 
-                let pages = Math.round(json.count / this.state.limit)
+            let pages = Math.round(json.count / this.state.limit)
 
-                this.setState({
-                    pokemons: json.results,
-                    totalPages: pages,
-                    count: json.count
-                })
+            this.setState({
+                pokemons: json.results,
+                totalPages: pages,
+                count: json.count
+            })
 
-            }).catch(err => {
-                console.log(err)
+        }).catch(err => {
+            console.log(err)
         })
     }
 
@@ -72,10 +72,10 @@ class App extends Component {
                 </div>
 
                 <SelectItemsPerPageButtons options={[10, 50, 100, 200]} selectedValue={this.state.limit}
-                allValue={this.state.count} onOptionSelected={this.handleLimitChange}/>
+                                           allValue={this.state.count} onOptionSelected={this.handleLimitChange}/>
 
                 <Col sm={8} md={10} smOffset={2} mdOffset={2}>
-                    <PokeList pokemons={this.state.pokemons} />
+                    <PokeList pokemons={this.state.pokemons}/>
                 </Col>
 
                 <Col sm={12}>

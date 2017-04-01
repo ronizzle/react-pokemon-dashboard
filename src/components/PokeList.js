@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListGroup, ListGroupItem, Col } from 'react-bootstrap/lib/'
+import {ListGroup, ListGroupItem, Col} from 'react-bootstrap/lib/'
 
 
 const PokeList = ({pokemons}) => {
