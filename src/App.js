@@ -4,6 +4,7 @@ import './App.css';
 import 'whatwg-fetch';
 import {Col, Pagination} from 'react-bootstrap/lib/'
 import PokemonIndexList from './components/PokemonIndexList'
+import PokemonModal from './components/PokemonModal'
 
 class App extends Component {
     constructor(props) {
@@ -15,12 +16,20 @@ class App extends Component {
             offset: 0,
             totalPages: 0,
             count: 0,
-            loaded: false
+            loaded: false,
+            showModal: false
         }
         this.handlePaginationSelect = this.handlePaginationSelect.bind(this)
         this.loadPokemons = this.loadPokemons.bind(this)
         this.handleLimitChange = this.handleLimitChange.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
 
+    }
+
+    toggleModal() {
+        this.setState({
+            showModal: !this.state.showModal
+        })
     }
 
     handleLimitChange(event) {
@@ -89,7 +98,7 @@ class App extends Component {
                     totalPages={this.state.totalPages}
                 />
 
-
+                <PokemonModal toggleModal={this.toggleModal} showModal={this.state.showModal}/>
             </div>
         );
     }
