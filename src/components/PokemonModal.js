@@ -1,5 +1,6 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap/lib/'
+import PokemonInfo from './PokemonInfo'
 
 const PokemonModal = ({toggleModal, showModal, pokemon}) => {
 
@@ -19,11 +20,12 @@ const PokemonModal = ({toggleModal, showModal, pokemon}) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title">{name}</Modal.Title>
+                    <PokemonInfo pokemon={pokemon} />
                 </Modal.Header>
                 <Modal.Body>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={toggleModal}>Close</Button>
+                    <Button onClick={toggleModal.bind(null, pokemon)}>Close</Button>
                 </Modal.Footer>
             </Modal>
         </div>
