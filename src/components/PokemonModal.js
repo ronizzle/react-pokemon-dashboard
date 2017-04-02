@@ -7,7 +7,7 @@ const PokemonModal = ({toggleModal, showModal, pokemon}) => {
     var name =  ''
 
     if(pokemon != null) {
-        name = pokemon.name
+        name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     }
 
     return (
@@ -16,13 +16,12 @@ const PokemonModal = ({toggleModal, showModal, pokemon}) => {
                 show={showModal}
                 onHide={toggleModal}
                 container={this}
-                aria-labelledby="contained-modal-title"
-            >
+                aria-labelledby="contained-modal-title">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title">{name}</Modal.Title>
-                    <PokemonInfo pokemon={pokemon} />
                 </Modal.Header>
                 <Modal.Body>
+                    <PokemonInfo pokemon={pokemon} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={toggleModal.bind(null, pokemon)}>Close</Button>

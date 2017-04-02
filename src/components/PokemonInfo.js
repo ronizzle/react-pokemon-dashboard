@@ -46,6 +46,7 @@ const PokemonInfo = ({pokemon}) => {
 
     return (
         <div>
+            <img src={pokemon.sprites.front_default} />
             <Radar data={chartData} width="300" height="250" />
         </div>
     )
