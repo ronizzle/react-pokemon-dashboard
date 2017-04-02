@@ -17,8 +17,10 @@ class App extends Component {
             totalPages: 0,
             count: 0,
             loaded: false,
-            showModal: false
+            showModal: false,
+            selectedPokemon: null
         }
+
         this.handlePaginationSelect = this.handlePaginationSelect.bind(this)
         this.loadPokemons = this.loadPokemons.bind(this)
         this.handleLimitChange = this.handleLimitChange.bind(this)
@@ -26,14 +28,34 @@ class App extends Component {
 
     }
 
-    toggleModal() {
-        this.setState({
-            showModal: !this.state.showModal
-        })
+    toggleModal(pokemon) {
+        if(!this.state.showModal) {
+
+            if(pokemon.url !== undefined) {
+                fetch(`${pokemon.url}`)
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(json => {
+
+                        this.setState({
+                            selectedPokemon: json,
+                            showModal: !this.state.showModal
+                        })
+                    })
+                    .catch(err => {
+                        console.log("Something went wrong with your pokemon err")
+                    })
+            }
+        } else {
+            this.setState({
+                selectedPokemon: null,
+                showModal: !this.state.showModal
+            })
+        }
     }
 
     handleLimitChange(event) {
-        console.log("something")
         this.setState({
             limit: +event.target.innerHTML || this.state.count,
             activePage: 1
@@ -99,7 +121,9 @@ class App extends Component {
                     toggleModal={this.toggleModal}
                 />
 
-                <PokemonModal toggleModal={this.toggleModal} showModal={this.state.showModal}/>
+                <PokemonModal toggleModal={this.toggleModal}
+                              pokemon={this.state.selectedPokemon}
+                              showModal={this.state.showModal}/>
             </div>
         );
     }
