@@ -4,14 +4,6 @@ import {Modal, Button} from 'react-bootstrap/lib/'
 const PokemonModal = ({toggleModal, showModal, pokemon}) => {
     return (
         <div className="modal-container" style={{height: 200}}>
-            <Button
-                bsStyle="primary"
-                bsSize="large"
-                onClick={toggleModal}
-            >
-                Launch contained modal
-            </Button>
-
             <Modal
                 show={showModal}
                 onHide={toggleModal}

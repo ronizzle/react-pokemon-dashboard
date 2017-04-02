@@ -96,6 +96,7 @@ class App extends Component {
                     activePage={this.state.activePage}
                     onSelect={this.handlePaginationSelect}
                     totalPages={this.state.totalPages}
+                    toggleModal={this.toggleModal}
                 />
 
                 <PokemonModal toggleModal={this.toggleModal} showModal={this.state.showModal}/>
